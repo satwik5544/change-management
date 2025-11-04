@@ -12,8 +12,8 @@
     "test:integration": "jest tests/integration/ --verbose",
     "test:system": "jest tests/system/ --verbose",
     "coverage": "jest --coverage --coverageReporters=html",
-    "lint": "eslint src/ tests/ app.js --ext .js",
-    "lint:fix": "eslint src/ tests/ app.js --ext .js --fix",
+    "lint": "eslint \"**/*.js\" --ignore-pattern \"node_modules/\"",
+    "lint:fix": "eslint \"**/*.js\" --ignore-pattern \"node_modules/\" --fix",
     "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\" \"app.js\"",
     "format:check": "prettier --check \"src/**/*.js\" \"tests/**/*.js\" \"app.js\"",
     "security": "npm audit --audit-level moderate",
@@ -48,5 +48,36 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/app.js",
+      "!**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html",
+      "json"
+    ],
+    "testMatch": [
+      "**/tests/**/*.test.js",
+      "**/tests/**/*.spec.js"
+    ],
+    "verbose": true,
+    "forceExit": true,
+    "clearMocks": true,
+    "resetMocks": true,
+    "restoreMocks": true
   }
 }
