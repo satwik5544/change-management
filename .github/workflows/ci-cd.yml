@@ -40,8 +40,13 @@ jobs:
         run: npm ci
       - name: Run unit tests
         run: npm test
-      - name: Run integration tests
-        run: npm run test:integration --if-present
+      - name: Run integration tests only if present
+        run: |
+          if npm run | grep -q "test:integration"; then
+            npm run test:integration
+          else
+            echo "Integration test script not found, skipping..."
+          fi
 
   coverage:
     runs-on: ubuntu-latest
