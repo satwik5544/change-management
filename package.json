@@ -1,0 +1,83 @@
+{
+  "name": "change-management-system",
+  "version": "1.0.0",
+  "description": "A web-based system for managing change requests in software projects",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest --verbose --coverage",
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit/ --verbose",
+    "test:integration": "jest tests/integration/ --verbose",
+    "test:system": "jest tests/system/ --verbose",
+    "coverage": "jest --coverage --coverageReporters=html",
+    "lint": "eslint src/ tests/ app.js --ext .js",
+    "lint:fix": "eslint src/ tests/ app.js --ext .js --fix",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\" \"app.js\"",
+    "format:check": "prettier --check \"src/**/*.js\" \"tests/**/*.js\" \"app.js\"",
+    "security": "npm audit --audit-level moderate",
+    "build": "echo 'No build step required for Node.js'",
+    "precommit": "npm run lint && npm test",
+    "ci:full": "npm run lint && npm test && npm run security"
+  },
+  "keywords": [
+    "change-management",
+    "software",
+    "express",
+    "nodejs",
+    "api"
+  ],
+  "author": "Your Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "nodemon": "^3.0.1",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/app.js",
+      "!**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html",
+      "json"
+    ],
+    "testMatch": [
+      "**/tests/**/*.test.js",
+      "**/tests/**/*.spec.js"
+    ],
+    "verbose": true,
+    "forceExit": true,
+    "clearMocks": true,
+    "resetMocks": true,
+    "restoreMocks": true
+  }
+}
