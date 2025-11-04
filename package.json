@@ -48,36 +48,5 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/app.js",
-      "!**/*.test.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 75,
-        "functions": 75,
-        "lines": 75,
-        "statements": 75
-      }
-    },
-    "coverageReporters": [
-      "text",
-      "lcov",
-      "html",
-      "json"
-    ],
-    "testMatch": [
-      "**/tests/**/*.test.js",
-      "**/tests/**/*.spec.js"
-    ],
-    "verbose": true,
-    "forceExit": true,
-    "clearMocks": true,
-    "resetMocks": true,
-    "restoreMocks": true
   }
 }
