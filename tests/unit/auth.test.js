@@ -35,4 +35,31 @@ describe('Authentication Tests', () => {
     expect(response.status).toBe(401);
     expect(response.body.success).toBe(false);
   });
+
+  test('Login with missing password should fail', async () => {
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'manager@company.com' });
+    
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+  });
+
+  test('Login with missing email should fail', async () => {
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ password: 'password' });
+    
+    expect(response.status).toBe(400);
+    expect(response.body.success).toBe(false);
+  });
+
+  test('Profile endpoint should return user data', async () => {
+    const response = await request(app)
+      .get('/api/auth/profile');
+    
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    expect(response.body.data.user).toBeDefined();
+  });
 });

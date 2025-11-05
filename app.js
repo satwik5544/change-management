@@ -1,57 +1,34 @@
 const express = require('express');
-const app = express();
+const authRoutes = require('./src/routes/auth');
 
+const app = express();
 app.use(express.json());
 
-// Health check endpoint
+// Routes
+app.use('/api/auth', authRoutes);
+
+// Health check
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'Change Management System is running' 
+    message: 'Change Management System is running',
+    timestamp: new Date().toISOString()
   });
 });
 
-// Mock login endpoint for testing
-app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body;
-  
-  // Mock authentication logic
-  if (email === 'manager@company.com' && password === 'password') {
-    res.json({
-      success: true,
-      message: 'Login successful',
-      data: {
-        token: 'mock-jwt-token-for-testing',
-        user: {
-          id: 1,
-          email: 'manager@company.com',
-          name: 'Project Manager',
-          role: 'manager'
-        }
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to Change Management System API',
+    version: '1.0.0',
+    endpoints: {
+      health: 'GET /health',
+      auth: {
+        login: 'POST /api/auth/login',
+        profile: 'GET /api/auth/profile'
       }
-    });
-  } 
-  else if (email === 'engineer@company.com' && password === 'password') {
-    res.json({
-      success: true,
-      message: 'Login successful',
-      data: {
-        token: 'mock-jwt-token-for-testing',
-        user: {
-          id: 2,
-          email: 'engineer@company.com',
-          name: 'Software Engineer', 
-          role: 'engineer'
-        }
-      }
-    });
-  }
-  else {
-    res.status(401).json({
-      success: false,
-      error: 'Invalid email or password'
-    });
-  }
+    }
+  });
 });
 
 module.exports = app;
